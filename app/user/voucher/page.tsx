@@ -1,4 +1,4 @@
-import Layout from '@/components/customernavigation/Layout'
+import Layout from '@/components/userdashboardcomponents/UserLayout'
 import { vouchers } from '@/data/data'
 import Image from 'next/image'
 import React from 'react'

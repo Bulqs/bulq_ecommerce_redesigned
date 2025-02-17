@@ -5,7 +5,10 @@ import { FiSearch, FiShoppingCart } from 'react-icons/fi';
 import logo from '../../public/images/logo5.svg';
 import { MdAccountCircle } from "react-icons/md";
 import { IoMdHelp } from "react-icons/io";
-import Cart from '@/app/cart/page';
+import Cart from '@/app/user/cart/page';
+import { LogoutUser } from "@/lib/actions";
+import { useRouter } from 'next/navigation';
+
 
 
 const TopBar: React.FC = () => {
@@ -13,6 +16,8 @@ const TopBar: React.FC = () => {
     const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
     const [cartCount, setCartCount] = useState<number>(2); // Set the cart count here
     const [isCartOpen, setIsCartOpen] = useState<boolean>(false); // Track Cart visibility
+
+    const router = useRouter();
 
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
@@ -75,8 +80,15 @@ const TopBar: React.FC = () => {
                                         Settings
                                     </a>
                                 </li>
-                                <li className="bg-white text-red-700">
-                                    <a href="/settings" className="block px-4 py-2 hover:bg-gray-100 hover:text-appBanner">
+                                <li className="bg-white text-red-700" >
+                                    <a 
+                                    href="#"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        LogoutUser();
+                                        router.push("/login");
+                                      }}
+                                    className="block px-4 py-2 hover:bg-gray-100 hover:text-appBanner">
                                         Logout
                                     </a>
                                 </li>

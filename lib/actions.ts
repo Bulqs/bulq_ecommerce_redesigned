@@ -14,6 +14,7 @@ export type AuthResponse = {
     authorities: { authority: ROLES }[];
     firstName: string;
     lastName: string;
+    image: string;
     email: string;
     username: string;
 };

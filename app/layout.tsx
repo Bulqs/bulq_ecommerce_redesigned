@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <NextTopLoader />
+      <NextTopLoader color='#008088'/>
         <Header />
         {children}
       </body>

@@ -1,8 +1,10 @@
 "use client";
 import Image from 'next/image';
 import logo from '../public/images/logo4.svg';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { LogoutUser } from "@/lib/actions";
+import { useUserStore } from "@/lib/utils/store";
 
 const Navigation = () => {
 
@@ -17,6 +19,8 @@ const Navigation = () => {
     const toggleSubItem = (item: string) => {
         setActiveSubItem((prevItem) => (prevItem === item ? null : item));
     };
+
+    
 
 
   return (

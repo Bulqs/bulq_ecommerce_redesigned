@@ -1,6 +1,6 @@
 "use client"
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FiSearch, FiShoppingCart } from 'react-icons/fi';
 import logo from '../../public/images/logo5.svg';
 import { MdAccountCircle } from "react-icons/md";
@@ -8,6 +8,7 @@ import { IoMdHelp } from "react-icons/io";
 import Cart from '@/app/user/cart/page';
 import { LogoutUser } from "@/lib/actions";
 import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/lib/utils/store';
 
 
 
@@ -26,6 +27,13 @@ const TopBar: React.FC = () => {
     const toggleCart = () => {
         setIsCartOpen(!isCartOpen); // Toggle Cart visibility
     };
+
+    const { user, destroyUserInfo } = useUserStore();
+
+    useEffect(() => {
+        // toast.success(`welcome ${user?.firstName}`);
+        useUserStore.persist.rehydrate();
+      }, []);
 
     return (
         <div className="flex items-center justify-between bg-appNav px-6 py-4">
@@ -86,7 +94,8 @@ const TopBar: React.FC = () => {
                                     onClick={(e) => {
                                         e.preventDefault();
                                         LogoutUser();
-                                        router.push("/login");
+                                        destroyUserInfo(user)
+                                        router.push("/signin");
                                       }}
                                     className="block px-4 py-2 hover:bg-gray-100 hover:text-appBanner">
                                         Logout

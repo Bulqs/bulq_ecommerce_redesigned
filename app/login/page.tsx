@@ -8,7 +8,8 @@ import google from "../../public/images/google.png";
 import { useRouter } from "next/navigation";
 import { LoginUser } from "@/lib/actions";
 import { BeatLoader } from "react-spinners";
-import { NAVIGATION, User, USER_AUTHORITES } from "@/types/index";
+import { NAVIGATION, User, USER_AUTHORITES, UserAside } from "@/types/index";
+import { useUserStore } from '@/lib/utils/store';
 
 const override: CSSProperties = {
     display: "block",
@@ -24,6 +25,8 @@ const SignUpPage: React.FC = () => {
   const [submissionPending, setSubmissionPending] = useState<boolean>(false);
   const router = useRouter();
 
+  const { addUserInfo } = useUserStore();
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -34,9 +37,16 @@ const SignUpPage: React.FC = () => {
     setErrorMessage("");
 
     if (!email || !password) {
-      setErrorMessage("Incomplete credentials");
+      setErrorMessage("Incomplete credentialHs");
       return;
     }
+
+    let userAside :UserAside = {
+      firstName: "",
+      lastName: "",
+      email: "",
+      image: ""
+  };
 
     (async function () {
       try {
@@ -48,6 +58,13 @@ const SignUpPage: React.FC = () => {
           // Retrieve roles
           const authorities = user.authorities[0]?.authority.split(" ");
           console.log(authorities);
+          userAside = {
+            firstName: user?.firstName,
+            lastName: user?.lastName,
+            email: user?.email,
+            image: user?.image
+          }
+          useUserStore.getState().addUserInfo(userAside);
 
           // Admin page
           if (authorities.includes(USER_AUTHORITES.ADMIN)) {

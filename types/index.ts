@@ -259,6 +259,8 @@ export interface FullUserDetails {
 export interface User {
     firstName: string;
     lastName: string;
+    email: string;
+    image: string;
     username: string;
     authorities: { authority: string }[];   
 }
@@ -391,6 +393,9 @@ export enum ROLES {
     address: string
   }
 
+  export interface UserType {
+    user: UserAside
+  }
   
 
   export enum USER_AUTHORITES {
@@ -404,4 +409,17 @@ export enum ROLES {
     PENDING = "PENDING",
     REJECTED = "REJECTED",
     ACCEPTED = "ACCEPTED",
+  }
+
+  export type UserAside = {
+
+    firstName: string;
+    lastName: string;
+    email: string;
+    image: string
+};
+
+  export type ActionTypes = {
+    addUserInfo:(user:UserAside)=>void;
+    destroyUserInfo:(user:UserAside)=>void;
   }
